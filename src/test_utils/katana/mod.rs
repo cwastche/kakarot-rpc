@@ -17,7 +17,7 @@ use reth_rpc_types::Log;
 use starknet::providers::jsonrpc::HttpTransport;
 use starknet::providers::JsonRpcClient;
 
-use crate::eth_provider::database::ethereum::EthereumDatabase;
+use crate::eth_provider::database::ethereum::EthereumTransactionStore;
 use crate::eth_provider::database::filter;
 use crate::eth_provider::database::filter::format_hex;
 use crate::eth_provider::database::filter::EthDatabaseFilterBuilder;
@@ -64,7 +64,7 @@ pub fn katana_config() -> StarknetConfig {
 /// Returns a `TestSequencer` configured for Kakarot.
 #[cfg(any(test, feature = "arbitrary", feature = "testing"))]
 async fn katana_sequencer() -> TestSequencer {
-    TestSequencer::start(SequencerConfig { no_mining: false, block_time: None, messaging: None }, katana_config()).await
+    TestSequencer::start(SequencerConfig { no_mining: false, block_time: None }, katana_config()).await
 }
 
 /// Represents the Katana test environment.
